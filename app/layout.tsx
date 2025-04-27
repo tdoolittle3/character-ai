@@ -16,8 +16,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head><script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-        <script>eruda.init();</script></head>
       <body className={inter.className}>{children}</body>
     </html>
   )
