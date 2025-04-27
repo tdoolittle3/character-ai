@@ -23,21 +23,23 @@ export default function DialogChat({ message, onDismiss }) {
   if (!mounted) return null
 
   return (
-    <AnimatePresence>
-      {message && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-          className="bg-black bg-opacity-80 text-green-500 p-4 rounded-md font-mono max-w-md mx-auto w-full"
-        >
-          <div className="flex">
-            <span className="mr-2 flex-shrink-0">{">"}</span>
-            <p className="break-words whitespace-pre-wrap overflow-hidden">{message}</p>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-8 pointer-events-none">
+      <AnimatePresence>
+        {message && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="bg-black bg-opacity-80 text-green-500 p-4 rounded-md font-mono max-w-md mx-auto w-full pointer-events-auto"
+          >
+            <div className="flex">
+              <span className="mr-2 flex-shrink-0">{">"}</span>
+              <p className="break-words whitespace-pre-wrap overflow-hidden">{message}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }

@@ -27,15 +27,12 @@ export default function ModelViewer() {
         <color attach="background" args={["#000000"]} />
         <Scene command={command} />
       </Canvas>
-      
-      {/* Dialog chat at the top */}
-      <div className="absolute top-8 left-0 right-0 flex justify-center">
-        <DialogChat message={dialogMessage} onDismiss={dismissDialog} />
-      </div>
+
+      <DialogChat message={dialogMessage} onDismiss={dismissDialog} />
 
       {/* Command line at the bottom */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full max-w-md">
-      <CommandLine value={command} onChange={setCommand} onSubmit={handleCommandSubmit} />      </div>
+        <CommandLine value={command} onChange={setCommand} onSubmit={handleCommandSubmit} />      </div>
     </div>
   )
 }
@@ -82,7 +79,7 @@ function Scene({ command }) {
   const handleModelClick = () => {
     playAnimation("bboyDance")
   }
-  
+
 
   return (
     <>
@@ -91,7 +88,7 @@ function Scene({ command }) {
         target={[0, 40, 0]}
         enableDamping
         dampingFactor={0.05}
- 
+
         enableZoom={true}
         minPolarAngle={0}
         maxPolarAngle={Math.PI / 2}
