@@ -20,12 +20,12 @@ export default function DialogChat({ message, onDismiss }) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
-          className="bg-black bg-opacity-80 text-green-500 p-4 rounded-md font-mono max-w-md mx-auto"
-        >
-          <div className="flex items-start">
-            <span className="mr-2 mt-1">{">"}</span>
-            <p>{message}</p>
-          </div>
+          className="bg-black bg-opacity-80 text-green-500 p-4 rounded-md font-mono max-w-md mx-auto w-full"
+          >
+            <div className="flex">
+              <span className="mr-2 flex-shrink-0">{">"}</span>
+              <p className="break-words whitespace-pre-wrap overflow-hidden">{message}</p>
+            </div>
         </motion.div>
       )}
     </AnimatePresence>
