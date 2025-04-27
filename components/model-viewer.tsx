@@ -12,6 +12,52 @@ const DialogChat = dynamic(() => import("./dialog-chat"), { ssr: false })
 export default function ModelViewer() {
   const [command, setCommand] = useState("")
   const [dialogMessage, setDialogMessage] = useState("")
+  const [bottomPosition, setBottomPosition] = useState(64) // 8rem default
+
+  // Handle keyboard visibility using VisualViewport API or resize events
+  useEffect(() => {
+    const handleResize = () => {
+      // Check if we're on mobile by screen width
+      const isMobile = window.innerWidth <= 768
+
+      if (!isMobile) return
+
+      // Get the visual viewport height (accounts for keyboard)
+      const viewportHeight = window.visualViewport?.height || window.innerHeight
+
+      // If the visual viewport is significantly smaller than the window, keyboard is likely open
+      const isKeyboardOpen = viewportHeight < window.innerHeight * 0.8
+
+      // Adjust position based on keyboard state
+      if (isKeyboardOpen) {
+        // Position the command line just above the keyboard
+        setBottomPosition(16) // 4rem when keyboard is open
+      } else {
+        setBottomPosition(32) // 8rem when keyboard is closed
+      }
+    }
+
+    // Use VisualViewport API if available
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", handleResize)
+      window.visualViewport.addEventListener("scroll", handleResize)
+    } else {
+      // Fallback to window resize
+      window.addEventListener("resize", handleResize)
+    }
+
+    // Initial check
+    handleResize()
+
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", handleResize)
+        window.visualViewport.removeEventListener("scroll", handleResize)
+      } else {
+        window.removeEventListener("resize", handleResize)
+      }
+    }
+  }, [])
 
   const handleCommandSubmit = (cmd) => {
     setDialogMessage(cmd)
@@ -30,9 +76,12 @@ export default function ModelViewer() {
 
       <DialogChat message={dialogMessage} onDismiss={dismissDialog} />
 
-      {/* Command line at the bottom */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full max-w-md">
-        <CommandLine value={command} onChange={setCommand} onSubmit={handleCommandSubmit} />      </div>
+      {/* Command line at the bottom - with dynamic positioning */}
+      <div className="fixed left-0 right-0 z-50 flex justify-center px-4" style={{ bottom: `${bottomPosition * 2}px` }}>
+        <div className="w-full max-w-md">
+          <CommandLine value={command} onChange={setCommand} onSubmit={handleCommandSubmit} />
+        </div>
+      </div>
     </div>
   )
 }
