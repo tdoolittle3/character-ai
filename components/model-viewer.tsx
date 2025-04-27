@@ -3,8 +3,11 @@
 import { useState, useRef, useEffect } from "react"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls, useGLTF, useAnimations } from "@react-three/drei"
-import CommandLine from "./command-line"
-import DialogChat from "./dialog-chat"
+import dynamic from "next/dynamic"
+
+// Import components with dynamic imports to prevent hydration mismatch
+const CommandLine = dynamic(() => import("./command-line"), { ssr: false })
+const DialogChat = dynamic(() => import("./dialog-chat"), { ssr: false })
 
 export default function ModelViewer() {
   const [command, setCommand] = useState("")
