@@ -50,36 +50,36 @@ export default function CommandLine({ value, onChange, onSubmit }) {
   return (
     <div
       ref={containerRef}
-      className="bg-black text-green-500 p-2 rounded font-mono text-lg flex items-center"
+      className="bg-black text-green-500 p-2 rounded font-mono text-lg"
       onClick={handleContainerClick}
     >
-      <span className="mr-2">$</span>
-      <div className="relative flex-1">
-        <input
-          ref={inputRef}
-          type="text"
-          value={value}
-          onChange={handleChange}
-          onKeyPress={handleKeyPress}
-          maxLength={MAX_CHARS}
-          className="bg-transparent outline-none border-none w-full caret-transparent"
-          aria-label="Command input"
-        />
-        <div
-          className="absolute top-0 left-0 pointer-events-none"
-          style={{
-            paddingLeft: `${value.length}ch`,
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <span className={`inline-block w-2 h-5 bg-green-500 ${cursorVisible ? "opacity-100" : "opacity-0"}`} />
+      <div className="flex items-start">
+        <span className="mr-2 flex-shrink-0">$</span>
+        <div className="relative flex-1 min-w-0">
+          <div className="whitespace-pre-wrap break-all">
+            {value}
+            <span
+              className={`inline-block w-2 h-5 align-middle bg-green-500 ${cursorVisible ? "opacity-100" : "opacity-0"}`}
+              style={{ verticalAlign: "middle" }}
+            />
+          </div>
+          <input
+            ref={inputRef}
+            type="text"
+            value={value}
+            onChange={handleChange}
+            onKeyPress={handleKeyPress}
+            maxLength={MAX_CHARS}
+            className="absolute top-0 left-0 w-full h-full opacity-0 cursor-text"
+            aria-label="Command input"
+          />
         </div>
       </div>
-      <span className="ml-2 text-xs text-green-700">
-        {value.length}/{MAX_CHARS}
-      </span>
+      <div className="text-right mt-1">
+        <span className="text-xs text-green-700">
+          {value.length}/{MAX_CHARS}
+        </span>
+      </div>
     </div>
   )
 }
