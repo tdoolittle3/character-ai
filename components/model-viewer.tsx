@@ -124,6 +124,13 @@ function Scene({ command }) {
     }, action.getClip().duration * 1000)
   }
 
+  useEffect(() => {
+    const idle = baseActions["Armature|mixamo.com|Layer0"]
+    if (idle) {
+      idle.reset().fadeIn(0.5).play()
+    }
+  }, [baseActions])
+
   // Optional: trigger on click or external command
   const handleModelClick = () => {
     playAnimation("bboyDance")
