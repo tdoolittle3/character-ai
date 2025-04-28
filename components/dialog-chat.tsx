@@ -34,9 +34,8 @@ export default function DialogChat({ userInput, onDismiss }) {
         }
 
         const data = await res.json();
-        console.log("data", data);
         // Assuming the API responds with { response: "..." }
-        setMessage(data || "No response");
+        setMessage(data.response || "No response");
 
         // Start timer after receiving the response
         const timer = setTimeout(() => {
