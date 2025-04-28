@@ -74,7 +74,7 @@ export default function ModelViewer() {
         <Scene command={command} />
       </Canvas>
 
-      <DialogChat message={dialogMessage} onDismiss={dismissDialog} />
+      <DialogChat userInput={dialogMessage} onDismiss={dismissDialog} />
 
       {/* Command line at the bottom - with dynamic positioning */}
       <div className="fixed left-0 right-0 z-50 flex justify-center px-4" style={{ bottom: `${bottomPosition * 2}px` }}>
