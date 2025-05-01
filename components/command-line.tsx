@@ -112,7 +112,7 @@ export default function CommandLine({ value, onChange, onSubmit }) {
       e.preventDefault() // Prevent default behavior (new line)
 
       if (value.trim()) {
-        //onSubmit(value)
+        onSubmit(value)
         onChange("") // Clear the input after submission
 
         // Reset textarea height if needed
