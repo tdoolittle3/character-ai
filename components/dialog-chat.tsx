@@ -49,7 +49,7 @@ export default function DialogChat({ userInput, onDismiss }) {
 
         const timer = setTimeout(() => {
           onDismiss();
-        }, 5000);
+        }, 10000);
 
         return () => clearTimeout(timer);
       }
