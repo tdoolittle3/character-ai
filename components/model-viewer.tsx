@@ -13,7 +13,7 @@ export default function ModelViewer() {
   const [command, setCommand] = useState("")
   const [dialogMessage, setDialogMessage] = useState("")
   const [bottomPosition, setBottomPosition] = useState(64) // 8rem default
-
+  const [showDialog, setShowDialog] = useState(false);
   // Handle keyboard visibility using VisualViewport API or resize events
   useEffect(() => {
     const handleResize = () => {
@@ -59,13 +59,14 @@ export default function ModelViewer() {
     }
   }, [])
 
-  const handleCommandSubmit = (cmd) => {
-    setDialogMessage(cmd)
-  }
+  const handleCommandSubmit = (value: string) => {
+    setDialogMessage(value); // This triggers DialogChat
+    setShowDialog(true);     // Control visibility explicitly
+  };
 
   const dismissDialog = () => {
-    setDialogMessage("")
-  }
+    setShowDialog(false);
+  };
 
   return (
     <div className="relative w-full h-full">
@@ -74,7 +75,9 @@ export default function ModelViewer() {
         <Scene command={command} />
       </Canvas>
 
-      <DialogChat userInput={dialogMessage} onDismiss={dismissDialog} />
+      {showDialog && (
+        <DialogChat userInput={dialogMessage} onDismiss={dismissDialog} />
+      )}
 
       {/* Command line at the bottom - with dynamic positioning */}
       <div className="fixed left-0 right-0 z-50 flex justify-center px-4" style={{ bottom: `${bottomPosition * 2}px` }}>
