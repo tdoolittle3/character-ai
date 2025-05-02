@@ -38,11 +38,11 @@ export default function DialogChat({ userInput, onDismiss }) {
         setMessage(data.response || "No response");
 
         // Start timer after receiving the response
-        const timer = setTimeout(() => {
-          onDismiss();
-        }, 5000); // 5 seconds
+        //const timer = setTimeout(() => {
+        //  onDismiss();
+        //}, 5000); // 5 seconds
 
-        return () => clearTimeout(timer);
+        //return () => clearTimeout(timer);
       } catch (error) {
         console.error("Error fetching chat response:", error);
         setMessage("Error processing request");
@@ -51,7 +51,7 @@ export default function DialogChat({ userInput, onDismiss }) {
           onDismiss();
         }, 10000);
 
-        return () => clearTimeout(timer);
+        //return () => clearTimeout(timer);
       }
     };
 
